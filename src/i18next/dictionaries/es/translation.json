@@ -1,0 +1,18 @@
+{
+    "packageName":"Nombre del Paquete",
+    "packageNamePlace": "Nombre del Paquete",
+    "passengerName": "Nombre del Pasajero",
+    "passengerNamePlace": "Nombre del Pasajero",
+    "passengerEmail": "Email del Pasajero",
+    "passengerEmailPlace": "Email del Pasajero",
+    "passport": "Numero de Pasaporte",
+    "passportPlace": "Ingrese el numero de su Pasaporte",
+    "adults": "Adultos",
+    "minors": "Menores",
+    "childs": "Niños",
+    "termsCond": "Términos y condiciones",
+    "termsCondParagraph": "Al hacer click usted esta deacuerdo con nuestros",
+    "termsCondButton": " términos y condiciones",
+    "cardButton": "Pagar con Tarjeta",
+    "advisePaypal":"Este método de pago tiene un recargo del 3% por comisiones."
+}

@@ -1,0 +1,18 @@
+{
+    "packageName":"Package name",
+    "packageNamePlace": "Package name",
+    "passengerName": "Passenger name",
+    "passengerNamePlace": "Passenger name",
+    "passengerEmail": "Passenger email",
+    "passengerEmailPlace": "Passenger email",
+    "passport": "Passport number",
+    "passportPlace": "Enter your Passport number",
+    "adults": "Adults",
+    "minors": "Minors",
+    "childs": "Childs",
+    "termsCond": "Terms and conditions",
+    "termsCondParagraph":"By clicking, you agree to our ",
+    "termsCondButton": " terms and conditions",
+    "cardButton": "Pay with Card",
+    "advisePaypal": "This payment method incurs an additional 3% fee due to commissions."
+}
