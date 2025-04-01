@@ -250,7 +250,7 @@ const handlePayment = async (values:any) => {
        
       
       const paymentConf = {
-        amount: Math.round(Number(totalAmount) * 100),
+        amount: Math.round(Number(totalAmount*params.percentaje/100) * 100),
         currency: "USD",
         customer: {
           reference: "AG0",
