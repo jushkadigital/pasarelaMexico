@@ -310,6 +310,7 @@ const handlePayment = async (values:any) => {
                         {...field}
                       />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -414,6 +415,7 @@ const handlePayment = async (values:any) => {
                         {...field}
                       />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
