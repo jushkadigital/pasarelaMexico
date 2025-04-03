@@ -86,9 +86,12 @@ const año = String(fecha.getFullYear()).slice(-2);
   }
 
 
+  const ff = ["before","in","after"]
 
 function encontrarIndiceFecha(fechaStr, rangos) {
     console.log(fechaStr)
+    console.log(rangos)
+    console.log(ff)
     // Función para convertir "dd/mm/yy" a objeto Date
     const parseFecha = (fecha) => {
       const [dia, mes, año] = fecha.split('/').map(Number);
@@ -103,6 +106,7 @@ function encontrarIndiceFecha(fechaStr, rangos) {
       const fin = parseFecha(finStr);
   
       if (fecha >= inicio && fecha <= fin) {
+        console.log(i)
         return i; // Retorna el índice del array donde la fecha está dentro del rango
       }
     }
@@ -110,7 +114,6 @@ function encontrarIndiceFecha(fechaStr, rangos) {
     return -1; // Retorna -1 si la fecha no está en ningún rango
   }
 
-  const ff = ["before","in","after"]
   const fechasFormated = params.fechas.split("||").map(ele=> ele.split('-'))
   console.log(fechasFormated)
   
@@ -240,9 +243,9 @@ const handlePayment = async (values:any) => {
   console.log(process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID)
   console.log(termsWatch)
 
-  const unitaryPriceSub1 = encontrarIndiceFecha("04/04/25",fechasFormated)
+  const unitaryPriceSub1 = encontrarIndiceFecha(getCurrentDate(),fechasFormated) == -1?  encontrarIndiceFecha("04/04/25",fechasFormated): encontrarIndiceFecha(getCurrentDate(),fechasFormated)
 
-      const {adult,minor,child} = validateDate[ff[unitaryPriceSub1]]
+  const {adult,minor,child} = validateDate[ff[unitaryPriceSub1]]
 
   const totalAmount = adult * adultPassengers + minor * minorPassengers + child * childPassengers
 
