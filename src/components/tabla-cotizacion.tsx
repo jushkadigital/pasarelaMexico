@@ -41,17 +41,17 @@ export const TablaCotizacion = ({lng,unitaryPrice,unitaryPrice2,unitaryPrice3,fi
         </TableRow>
         {unitaryPrice2 && 
           <TableRow>
-          <TableCell className="font-medium">{t('unitaryPrice')}</TableCell>
-          <TableCell>{t('priceMinorPassenger')}</TableCell>
-          <TableCell className="text-right">${unitaryPrice2}</TableCell>
+          <TableCell className="font-medium"></TableCell>
+          <TableCell>{(unitaryPrice2) == "" ? "" :  t('priceMinorPassenger')}</TableCell>
+          <TableCell className="text-right">${ Number(unitaryPrice2) == 0 ? "" : unitaryPrice2}</TableCell>
         </TableRow>
 }
         
         {unitaryPrice3 && 
           <TableRow>
-          <TableCell className="font-medium">{t('unitaryPrice')}</TableCell>
-          <TableCell>{t('priceChildPassenger')}</TableCell>
-          <TableCell className="text-right">${unitaryPrice3}</TableCell>
+          <TableCell className="font-medium"></TableCell>
+          <TableCell>  {(unitaryPrice3) == "" ? "": t('priceChildPassenger')}</TableCell>
+          <TableCell className="text-right">${(unitaryPrice3) == "" ? "":  unitaryPrice3}</TableCell>
         </TableRow>
 }
 

@@ -5,7 +5,7 @@
     "passengerNamePlace": "Nombre del Pasajero",
     "passengerEmail": "Email del Pasajero",
     "passengerEmailPlace": "Email del Pasajero",
-    "passport": "Numero de Pasaporte",
+    "phone": "Numero de Celular",
     "passportPlace": "Ingrese el numero de su Pasaporte",
     "adults": "Adultos",
     "minors": "Menores",

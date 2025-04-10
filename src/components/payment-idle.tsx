@@ -141,10 +141,21 @@ function encontrarIndiceFecha(fechaStr, rangos) {
     message: "El precio debe tener máximo dos cifras decimales",
   });
 
-const passportSchema =  z
-.string()
-.length(9,{message:"El número de pasaporte debe tener exactamente 9 caracteres."})
-.regex(/^[A-Z]{2}[0-9]{7}$/, {message:"El formato del pasaporte debe ser 2 letras + 7 números."})
+
+  const mexicoCelularSchema = z
+  .string()
+  .transform((val) => {
+    // elimina espacios y guiones
+    const cleaned = val.replace(/[\s-]/g, "");
+
+    // elimina prefijos +52, 52, +521, 521 si existen
+    const withoutPrefix = cleaned.replace(/^(\+?52)?1?/, "");
+
+    return withoutPrefix;
+  })
+  .refine((val) => /^[1-9]\d{9}$/.test(val), {
+    message: "Debe ser un número celular válido de México (10 dígitos, sin empezar en 0)",
+  }); 
 
 //const numPassengersSchema = z.number({
 //    required_error: "min 1",
@@ -161,7 +172,7 @@ const creditCardSchema = z.object({
     cardHolder: cardHolderSchema,
     termsAndCondition: termsAndConditionSchema,
     email: emailSchema,
-    passport: passportSchema
+    cel: mexicoCelularSchema
   });
 
   const increaseAdultNumber = ()=>{
@@ -205,13 +216,14 @@ function decodeBase64UrlSafe(encoded:string) {
   const EEE = "aooa@gmail.com"
   const form = useForm<z.infer<typeof creditCardSchema>>({
     resolver: zodResolver(creditCardSchema),
+    mode: "onChange",
     defaultValues: {
       method: "credit_card",
       namePaquete: params.namePaquete || "", 
       cardHolder:  "",
       termsAndCondition: false,
       email: "",
-      passport: ""
+      cel: "+52"
       // email: decodeBase64UrlSafe(EEE) || "",
       // price: parseFloat(params.finalPrice) || 0
     },
@@ -219,7 +231,11 @@ function decodeBase64UrlSafe(encoded:string) {
 
   // const [paypalState,setPaypalState] = useState(false)
 
+
   const termsWatch = form.watch("termsAndCondition")
+
+  
+
   async function onSubmit(values: z.infer<typeof creditCardSchema>) {
     console.log(values)
     await handlePayment(values)
@@ -409,12 +425,12 @@ const handlePayment = async (values:any) => {
             <div className="w-full">
                 <FormField
                 control={form.control}
-                name="passport"
+                name="cel"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t('passport')}</FormLabel>
+                    <FormLabel>{t('phone')}</FormLabel>
                     <FormControl>
-                      <Input placeholder={t('passportPlace')}
+                      <Input 
                         {...field}
                       />
                     </FormControl>
@@ -466,18 +482,23 @@ const handlePayment = async (values:any) => {
         </div>
         <div>
         <div className="w-full  flex flex-col justify-stretch">
-        <TablaCotizacion  lng={lng} unitaryPrice={adult} unitaryPrice2={minor} unitaryPrice3={child} finalPrice={(totalAmount)}  percentage={params.percentaje} subPrice1={String(totalAmount*params.percentaje/100)} subPrice2={String(totalAmount*(100-params.percentaje)/100)} />
+        <TablaCotizacion  lng={lng} unitaryPrice={adult} unitaryPrice2={minorPassengers > 0 ? minor: ""} unitaryPrice3={childPassengers > 0 ? child: ""} finalPrice={(totalAmount)}  percentage={params.percentaje} subPrice1={String(totalAmount*params.percentaje/100)} subPrice2={String(totalAmount*(100-params.percentaje)/100)} />
         </div>
             { true &&
            <div className="w-full space-y-2 lg:space-y-4">
             <div className="w-full lg:mt-10" >
-              <Button disabled={!termsWatch} type="submit" form="formPDS" className="w-full max-w-[750px] py-8 text-lg font-bold bg-[#2C2E2F]" >{t('cardButton')}</Button>
+              <Button disabled={!termsWatch} type="submit" form="formPDS" className="w-full max-w-[750px] bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-75 flex items-center justify-center space-x-2" >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+  </svg>               
+                
+                {t('cardButton')}</Button>
             </div>
               <div className="w-full h-36 mt-5">
                 {t('advisePaypal')}
               <PayPalScriptProvider options={{clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID}}>
                 <PayPalButtons 
-                  style={{color:"black",layout: "horizontal"}}
+                  style={{color:"gold",layout: "horizontal"}}
                   className="w-full"
                   disabled={!termsWatch}
                   createOrder={async()=> {
