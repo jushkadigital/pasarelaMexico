@@ -358,7 +358,7 @@ const handlePayment = async (values:any) => {
                 </div>
                 </div>
                 <div className="w-1/3">
-                    <FormLabel>{t('minors')}</FormLabel>
+                    <FormLabel>{t('minors')}(7-14)</FormLabel>
                 <Input value={minorPassengers}/>
                 <div className="flex flex-row">
                 <Button type="button" onClick={()=>increaseMinorNumber()} 
@@ -380,7 +380,7 @@ const handlePayment = async (values:any) => {
                 </div>
                 </div>
                  <div className="w-1/3">
-                    <FormLabel>{t('childs')}</FormLabel>
+                    <FormLabel>{t('childs')}(3-7)</FormLabel>
                 <Input value={childPassengers}/>
                 <div className="flex flex-row">
                 <Button type="button" onClick={()=>increaseChildNumber()} 
